@@ -1,5 +1,3 @@
-import six
-
 from starwars_api.client import SWAPIClient
 from starwars_api.exceptions import SWAPIClientError
 
@@ -9,8 +7,11 @@ api_client = SWAPIClient()
 class BaseModel(object):
 
     def __init__(self, json_data):
-        for key, value in six.iteritems(json_data):
-            setattr(self, key, value)
+        """
+        Dynamically assign all attributes in `json_data` as instance
+        attributes of the Model.
+        """
+        pass
 
     @classmethod
     def get(cls, resource_id):
