@@ -1,0 +1,3 @@
+
+class SWAPIClientError(Exception):
+    pass
