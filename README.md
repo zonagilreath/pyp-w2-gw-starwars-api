@@ -31,6 +31,17 @@ Resources must also implement a way of iterating through all objects. To do that
 "Person: C-3PO"
 ```
 
+Iterative structures like `for`, `while` and list comprehensions must also be supported by `QuerySet`s:
+```python
+>>> len([person for person in People.all()])
+87
+>>> for person in People.all():
+        print(person.name)
+"Luke Skywalker"
+"C-3PO"
+...
+```
+
 `QuerySet`s must implement an easy way of returning the amount of objects it contains:
 
 ```python
