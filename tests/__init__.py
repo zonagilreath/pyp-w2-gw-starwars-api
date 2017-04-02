@@ -18,22 +18,22 @@ class BaseStarWarsAPITestCase(unittest.TestCase):
             # (:method, :uri, :status, :fixture)
 
             # DETAIL /people
-            ('GET', r'{}/people/100', 404, 'people_id_100.json'),
+            ('GET', r'{}/people/100', 404, 'not_found.json'),
             ('GET', r'{}/people/1', 200, 'people_id_1.json'),
 
             # LIST /people
-            ('GET', r'{}/people\?page=1', 200, 'people_page_1.json'),
-            ('GET', r'{}/people\?page=2', 200, 'people_page_2.json'),
-            ('GET', r'{}/people\?page=3', 404, 'people_page_3.json'),
+            ('GET', r'{}/people\?page=(?![12]$).+', 404, 'not_found.json'),
+            ('GET', r'{}/people\?page=1$', 200, 'people_page_1.json'),
+            ('GET', r'{}/people\?page=2$', 200, 'people_page_2.json'),
             ('GET', r'{}/people', 200, 'people_page_1.json'),
 
             # DETAIL /films
-            ('GET', r'{}/films/100', 404, 'films_id_100.json'),
+            ('GET', r'{}/films/100', 404, 'not_found.json'),
             ('GET', r'{}/films/1', 200, 'films_id_1.json'),
 
             # LIST /films
+            ('GET', r'{}/films\?page=(?!1$).+', 404, 'not_found.json'),
             ('GET', r'{}/films\?page=1', 200, 'films_page_1.json'),
-            ('GET', r'{}/films\?page=2', 404, 'films_page_2.json'),
             ('GET', r'{}/films', 200, 'films_page_1.json'),
         ]
         for method, uri, status, fixture_file in fake_responses:

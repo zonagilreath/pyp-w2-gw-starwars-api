@@ -41,6 +41,10 @@ class ClientTestCase(BaseStarWarsAPITestCase):
                  'Reason: {"detail": "Not found"}')
         with self.assertRaisesRegexp(SWAPIClientError, error):
             self.api_client.get_people(**{'page': 3})
+        with self.assertRaisesRegexp(SWAPIClientError, error):
+            self.api_client.get_people(**{'page': 0})
+        with self.assertRaisesRegexp(SWAPIClientError, error):
+            self.api_client.get_people(**{'page': 10})
 
     @responses.activate
     def test_api_client_get_films_id(self):
@@ -65,3 +69,5 @@ class ClientTestCase(BaseStarWarsAPITestCase):
                  'Reason: {"detail": "Not found"}')
         with self.assertRaisesRegexp(SWAPIClientError, error):
             self.api_client.get_films(**{'page': 2})
+        with self.assertRaisesRegexp(SWAPIClientError, error):
+            self.api_client.get_films(**{'page': 10})
