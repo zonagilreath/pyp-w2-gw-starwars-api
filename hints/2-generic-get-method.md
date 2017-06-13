@@ -18,30 +18,25 @@ Imagine that we want to add a third Model in the future. If we hardcode all the 
 
 Instead, we must find the way to implement it in a way that allows future Models additions without further changes in the `BaseModel` class.
 
-This could be a valid approach:
+One way to do this is to use another of Python's methods for working with dynamic attributes: `getattr`
 
+This is how `getattr` works:
 ```python
-@classmethod
-def get(cls, resource_id):
-    """
-    Returns an object of current Model requesting data to SWAPI using
-    the api_client.
-    """
+# These two lines are functionally the same
+print(my_obj.my_attr)
+print(getattr(my_obj, 'my_attr'))
+```
+Just like `setattr`, `getattr` takes the attribute name as a string. You can also give `getattr` a third parameter which becomes the default value if the attribute doesn't exist.
 
-    # let's generate the method name dynamically based
-    # on the RESOURCE_NAME class variable
-    method_name = 'get_{}'.format(cls.RESOURCE_NAME)  # this will be either `get_people` or `get_films`
+One useful way to use `getattr` is to use it to dynamically call an object's methods, since they are also attributes of the object:
+```python
+class MyObject(object):
+    def my_method(self):
+        pass
 
-    # now that we have the name, let's pick the actual method function
-    # from the `api_client` object using the built-in `getattr()`
-    method = getattr(api_client, method_name)
+o = MyObject()
 
-    # and finally let's execute the method sending the proper parameters
-    # and return the result
-    json_data = method(resource_id)
-
-    # remember that the result of the `get()` method must be an instance
-    # of the model. That's why we need to instantiate `cls`, which
-    # represents the current Model class (either People or Films)
-    return cls(json_data)
+# These two are functionally the same
+o.my_method()
+getattr(o, 'my_method')()
 ```
