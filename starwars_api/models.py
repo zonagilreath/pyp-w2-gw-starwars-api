@@ -33,23 +33,12 @@ class BaseModel(object):
 
 class People(BaseModel):
     """Representing a single person"""
-    RESOURCE_NAME = 'people'
-
-    def __init__(self, json_data):
-        super(People, self).__init__(json_data)
-
-    def __repr__(self):
-        return 'Person: {0}'.format(self.name)
+    pass
 
 
 class Films(BaseModel):
-    RESOURCE_NAME = 'films'
-
-    def __init__(self, json_data):
-        super(Films, self).__init__(json_data)
-
-    def __repr__(self):
-        return 'Film: {0}'.format(self.title)
+    """Representing a single film"""
+    pass
 
 
 class BaseQuerySet(object):
@@ -79,20 +68,8 @@ class BaseQuerySet(object):
 
 
 class PeopleQuerySet(BaseQuerySet):
-    RESOURCE_NAME = 'people'
-
-    def __init__(self):
-        super(PeopleQuerySet, self).__init__()
-
-    def __repr__(self):
-        return 'PeopleQuerySet: {0} objects'.format(str(len(self.objects)))
+    pass
 
 
 class FilmsQuerySet(BaseQuerySet):
-    RESOURCE_NAME = 'films'
-
-    def __init__(self):
-        super(FilmsQuerySet, self).__init__()
-
-    def __repr__(self):
-        return 'FilmsQuerySet: {0} objects'.format(str(len(self.objects)))
+    pass
