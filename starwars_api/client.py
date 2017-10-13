@@ -21,12 +21,11 @@ class SWAPIClient(object):
         url_parts = urlsplit(settings.BASE_URL)
         scheme = url_parts.scheme
         netloc = url_parts.netloc
-        query = urlencode(params)
-        url = urlunsplit((scheme, netloc, path, query, ''))
+        url = urlunsplit((scheme, netloc, path, '', ''))
 
         timeout = timeout or self.GET_TIMEOUT
         try:
-            resp = requests.request(method, url, data=data, timeout=timeout)
+            resp = requests.request(method, url, data=data, timeout=timeout, params=params)
         except requests.exceptions.ConnectionError:
             msg = 'Could not connect to the SWAPI at {}'.format(url)
             raise SWAPIClientError(msg)
