@@ -47,7 +47,7 @@ class PeopleQuerySetTestCase(BaseStarWarsAPITestCase):
     @responses.activate
     def test_people_qs_next(self):
         qs = People.all()
-        obj = qs.next()
+        obj = next(qs)
         self.assertTrue(isinstance(obj, People))
         self.assertEqual(obj.name, 'Luke Skywalker')
 
@@ -66,7 +66,7 @@ class FilmsQuerySetTestCase(BaseStarWarsAPITestCase):
     @responses.activate
     def test_films_qs_next(self):
         qs = Films.all()
-        obj = qs.next
+        obj = next(qs)
         self.assertTrue(isinstance(obj, Films))
         self.assertEqual(obj.title, 'A New Hope')
 
